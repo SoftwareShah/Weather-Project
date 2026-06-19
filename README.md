@@ -13,6 +13,11 @@
 ## 🌟 Live Demo
 
 > Search any city → get instant real-time weather data displayed in beautiful animated cards.
+<img width="946" height="498" alt="image" src="https://github.com/user-attachments/assets/87d6729c-5dfa-4dc3-8d02-d170483f8bfc" />
+<img width="946" height="492" alt="image" src="https://github.com/user-attachments/assets/e527884a-bed9-4ced-a373-b0df0d26f521" />
+![Uploading image.png…]()
+
+
 
 ---
 
