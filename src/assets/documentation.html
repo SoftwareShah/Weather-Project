@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WeatherSphere — Project Documentation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 40px;
+      line-height: 1.7;
+    }
+
+    /* cover page */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      page-break-after: always;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      border-radius: 16px;
+      padding: 60px 40px;
+      margin-bottom: 40px;
+    }
+
+    .cover .sun {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffe066, #ff9900);
+      box-shadow: 0 0 40px 15px rgba(255,180,50,0.6), 0 0 80px 30px rgba(255,120,0,0.3);
+      margin-bottom: 30px;
+    }
+
+    .cover h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #ffe066, #ff9900, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .cover p {
+      font-size: 1.1rem;
+      color: #aaa;
+      max-width: 500px;
+      margin-bottom: 30px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.8rem;
+      margin: 4px;
+      color: #ccc;
+    }
+
+    /* sections */
+    .section {
+      margin-bottom: 50px;
+      page-break-inside: avoid;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ff9900;
+      border-bottom: 2px solid rgba(255,150,0,0.3);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: #ffe066;
+      margin: 20px 0 10px;
+    }
+
+    p { color: #ccc; margin-bottom: 12px; }
+
+    /* tech stack table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th {
+      background: rgba(255,150,0,0.15);
+      color: #ff9900;
+      padding: 10px 16px;
+      text-align: left;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    tr:hover td { background: rgba(255,255,255,0.03); }
+
+    /* code block */
+    pre {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      font-size: 0.82rem;
+      overflow-x: auto;
+      color: #79c0ff;
+      margin-bottom: 16px;
+    }
+
+    code { font-family: 'Consolas', monospace; }
+
+    /* folder structure */
+    .tree {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      font-family: 'Consolas', monospace;
+      font-size: 0.82rem;
+      color: #8b949e;
+      line-height: 1.9;
+    }
+
+    .tree .folder { color: #79c0ff; }
+    .tree .file   { color: #a5d6ff; }
+    .tree .dim    { color: #8b949e; }
+
+    /* feature cards */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,150,0,0.2);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .feature-card .icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .feature-card h4 { color: #fff; font-size: 0.95rem; margin-bottom: 6px; }
+    .feature-card p  { color: #888; font-size: 0.82rem; margin: 0; }
+
+    /* api section */
+    .api-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.88rem;
+    }
+
+    .api-row .key   { color: #79c0ff; font-family: monospace; }
+    .api-row .desc  { color: #8b949e; }
+
+    /* footer */
+    .footer {
+      text-align: center;
+      color: #555;
+      font-size: 0.8rem;
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid #21262d;
+    }
+
+    @media print {
+      body { background: #fff; color: #000; padding: 20px; }
+      .cover { background: #f5f5f5; }
+      pre, .tree { background: #f5f5f5; color: #333; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover">
+    <div class="sun"></div>
+    <h1>⛅ WeatherSphere</h1>
+    <p>A production-grade real-time weather application built with React 19, GSAP animations, MUI components, and OpenWeatherMap API integration.</p>
+    <div>
+      <span class="badge">React 19</span>
+      <span class="badge">Vite 8</span>
+      <span class="badge">MUI v9</span>
+      <span class="badge">GSAP 3</span>
+      <span class="badge">OpenWeatherMap API</span>
+      <span class="badge">CSS Animations</span>
+    </div>
+  </div>
+
+  <!-- 1. OVERVIEW -->
+  <div class="section">
+    <h2>1. Project Overview</h2>
+    <p>WeatherSphere is a modern, visually stunning real-time weather application. Users can search any city worldwide and instantly see detailed weather information displayed in interactive animated cards. The app demonstrates advanced React patterns, API integration, GSAP-powered animations, and professional UI/UX design.</p>
+    <p>This project was built as a showcase of frontend development skills including component architecture, state management, animation libraries, and third-party API integration.</p>
+  </div>
+
+  <!-- 2. FEATURES -->
+  <div class="section">
+    <h2>2. Key Features</h2>
+    <div class="features">
+      <div class="feature-card">
+        <div class="icon">🔍</div>
+        <h4>Real-time Weather Search</h4>
+        <p>Search any city globally and get live data from OpenWeatherMap API instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🎴</div>
+        <h4>ChromaGrid Cards</h4>
+        <p>Interactive mouse-tracking spotlight effect on cards powered by GSAP quickSetter.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">✍️</div>
+        <h4>Typewriter Animation</h4>
+        <p>Custom GSAP-powered typewriter component with variable speed and cursor blink.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🌅</div>
+        <h4>Glowing Sun UI</h4>
+        <p>Pulsing sun image with layered CSS box-shadow glow animation synced to heading text.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔮</div>
+        <h4>Glass Morphism Search</h4>
+        <p>Frosted glass search bar with backdrop-filter blur and focus-triggered glow effect.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📊</div>
+        <h4>Structured Weather Data</h4>
+        <p>3 cards showing condition, temperature, and wind — each with MUI icons and labels.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. TECH STACK -->
+  <div class="section">
+    <h2>3. Tech Stack</h2>
+    <table>
+      <tr><th>Technology</th><th>Version</th><th>Purpose</th></tr>
+      <tr><td>React</td><td>19.2.5</td><td>UI framework, hooks, component architecture</td></tr>
+      <tr><td>Vite</td><td>8.0.10</td><td>Build tool, HMR dev server, asset handling</td></tr>
+      <tr><td>MUI (Material UI)</td><td>9.1.1</td><td>TextField, Button, Icons components</td></tr>
+      <tr><td>GSAP</td><td>3.15.0</td><td>ChromaGrid spotlight, typewriter cursor animations</td></tr>
+      <tr><td>OpenWeatherMap API</td><td>v2.5</td><td>Live weather data source</td></tr>
+      <tr><td>Emotion</td><td>11.14.0</td><td>CSS-in-JS for MUI styling</td></tr>
+      <tr><td>styled-components</td><td>6.4.2</td><td>Component-level styling</td></tr>
+    </table>
+  </div>
+
+  <!-- 4. FOLDER STRUCTURE -->
+  <div class="section">
+    <h2>4. Project Structure</h2>
+    <div class="tree">
+      <span class="folder">src/</span><br>
+      &nbsp;&nbsp;<span class="folder">├── assets/</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">├── bg.jpg</span> <span class="dim">— Dark stormy background (Unsplash)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">├── sunny.jpg</span> <span class="dim">— Sunny card image</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">├── cloudy.jpg</span> <span class="dim">— Cloudy card image</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">├── rainy.jpg</span> <span class="dim">— Rainy card image</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">└── sun.jpg</span> <span class="dim">— Glowing sun header image</span><br>
+      &nbsp;&nbsp;<span class="folder">├── components/</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">├── Header/</span> <span class="dim">— Sun image + typewriter heading</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">├── SearchBox/</span> <span class="dim">— City input + API call + state lift</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">├── InfoBox/</span> <span class="dim">— Weather data container</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">└── ChromaGrid/</span> <span class="dim">— GSAP interactive cards</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">└── TextType/</span> <span class="dim">— Reusable typewriter component</span><br>
+      &nbsp;&nbsp;<span class="file">├── App.jsx</span> <span class="dim">— Root, weatherInfo state, prop drilling</span><br>
+      &nbsp;&nbsp;<span class="file">├── index.css</span> <span class="dim">— Global bg, overlay, layout</span><br>
+      &nbsp;&nbsp;<span class="file">└── main.jsx</span> <span class="dim">— React entry point</span><br>
+    </div>
+  </div>
+
+  <!-- 5. DATA FLOW -->
+  <div class="section">
+    <h2>5. Data Flow Architecture</h2>
+    <pre><code>
+  User types city → SearchBox
+          ↓
+  fetch(OpenWeatherMap API)
+          ↓
+  setWeatherInfo(result) → App.jsx state
+          ↓
+  &lt;InfoBox info={weatherInfo} /&gt;
+          ↓
+  &lt;ChromaGrid info={info} /&gt;
+          ↓
+  3 structured cards rendered with weather data
+    </code></pre>
+  </div>
+
+  <!-- 6. API REFERENCE -->
+  <div class="section">
+    <h2>6. API Reference</h2>
+    <pre><code>GET https://api.openweathermap.org/data/2.5/weather?q={city}&appid={KEY}&units=metric</code></pre>
+    <div class="api-row"><span class="key">main.temp</span><span class="desc">Current temperature in °C</span></div>
+    <div class="api-row"><span class="key">main.feels_like</span><span class="desc">Feels like temperature in °C</span></div>
+    <div class="api-row"><span class="key">main.temp_max / temp_min</span><span class="desc">Max and min temperature</span></div>
+    <div class="api-row"><span class="key">main.humidity</span><span class="desc">Humidity percentage</span></div>
+    <div class="api-row"><span class="key">main.pressure</span><span class="desc">Atmospheric pressure in hPa</span></div>
+    <div class="api-row"><span class="key">weather[0].main</span><span class="desc">Sky condition (Clear, Clouds, Rain...)</span></div>
+    <div class="api-row"><span class="key">weather[0].description</span><span class="desc">Detailed weather description</span></div>
+    <div class="api-row"><span class="key">wind.speed</span><span class="desc">Wind speed in m/s</span></div>
+  </div>
+
+  <!-- 7. SETUP -->
+  <div class="section">
+    <h2>7. Setup & Installation</h2>
+    <h3>Clone & Install</h3>
+    <pre><code>git clone https://github.com/yourusername/weather-app.git
+cd weather-app
+npm install</code></pre>
+    <h3>Run Development Server</h3>
+    <pre><code>npm run dev
+# Opens at http://localhost:5173</code></pre>
+    <h3>Build for Production</h3>
+    <pre><code>npm run build
+npm run preview</code></pre>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>WeatherSphere — Built with React 19 + Vite + MUI + GSAP</p>
+    <p style="margin-top:6px;">© 2025 — Open Source under MIT License</p>
+  </div>
+
+</body>
+</html>
